@@ -1,0 +1,14 @@
+{
+  "name": "clique",
+  "version": "1.0.0",
+  "description": "Desktop app to Optimize Pictures",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Ronnie Kiyegga",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^10.1.3"
+  }
+}
