@@ -14,7 +14,8 @@
       title: 'Clique',
       width: 400,
       height: 500,
-      resizable: isDev
+      resizable: isDev,
+      backgroundColor: 'white',
     });
 
     mainWindow.loadFile('./app/index.html');
@@ -27,6 +28,9 @@
     Menu.setApplicationMenu(mainMenu);
 
     globalShortcut.register('CmdOrCtrl+R', () => mainWindow.reload())
+    globalShortcut.register(isMac ? 'Command+Alt+I' : 'Ctrl+Shift+I', () => mainWindow.toggleDevTools())
+
+
     mainWindow.on('ready', () => (mainWindow = null));
   });
 
