@@ -1,5 +1,5 @@
 (function() {
-  const { app, BrowserWindow, Menu, globalShortcut } = require('electron');
+  const { app, BrowserWindow, Menu} = require('electron');
 
   //set Environment
   process.env.NODE_ENV = 'development';
@@ -8,6 +8,7 @@
   const isMac = process.platform === 'darwin' ? true : false;
 
   let mainWindow;
+  let aboutWindow;
   //Creating the Main window
   function createMainWindow() {
     mainWindow = new BrowserWindow({
@@ -15,10 +16,23 @@
       width: 400,
       height: 500,
       resizable: isDev,
-      backgroundColor: 'white',
+      backgroundColor: 'white'
     });
 
     mainWindow.loadFile('./app/index.html');
+  }
+
+  //About Window
+  function createAboutWindow() {
+    aboutWindow = new BrowserWindow({
+      title: 'About Clique',
+      width: 300,
+      height: 300,
+      resizable: false,
+      backgroundColor: 'white'
+    });
+
+    aboutWindow.loadFile('./app/index.html');
   }
 
   app.on('ready', () => {
@@ -26,11 +40,6 @@
 
     const mainMenu = Menu.buildFromTemplate(menu);
     Menu.setApplicationMenu(mainMenu);
-
-    globalShortcut.register('CmdOrCtrl+R', () => mainWindow.reload())
-    globalShortcut.register(isMac ? 'Command+Alt+I' : 'Ctrl+Shift+I', () => mainWindow.toggleDevTools())
-
-
     mainWindow.on('ready', () => (mainWindow = null));
   });
 
@@ -43,21 +52,22 @@
         ]
       : []),
     {
-      role: 'FileMenu',
+      role: 'FileMenu'
     },
 
-    ...(isDev ? [
-        {
+    ...(isDev
+      ? [
+          {
             label: 'Developer',
             submenu: [
-                { role: 'reload'},
-                { role: 'forcereload'},
-                { type: 'seperator'},
-                { role: 'toggledevtools'},
-
+              { role: 'reload' },
+              { role: 'forcereload' },
+              { type: 'seperator' },
+              { role: 'toggledevtools' }
             ]
-        }
-    ] : [])
+          }
+        ]
+      : [])
   ];
 
   app.on('window-all-closed', () => {
