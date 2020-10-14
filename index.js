@@ -43,15 +43,21 @@
         ]
       : []),
     {
-      label: 'File',
-      submenu: [
+      role: 'FileMenu',
+    },
+
+    ...(isDev ? [
         {
-          label: 'Quit',
-          accelerator: 'CmdOrCtrl+W',
-          click: () => app.quit()
+            label: 'Developer',
+            submenu: [
+                { role: 'reload'},
+                { role: 'forcereload'},
+                { type: 'seperator'},
+                { role: 'toggledevtools'},
+
+            ]
         }
-      ]
-    }
+    ] : [])
   ];
 
   app.on('window-all-closed', () => {
